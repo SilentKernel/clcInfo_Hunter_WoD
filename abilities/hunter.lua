@@ -100,7 +100,7 @@ emod.hunter_abilities = {
 		id = emod.spells["Barrage"],
 		GetCD = function()
 			if emod.last_ability == emod.spells["Barrage"] then return 100 end
-			print(emod:GetCooldown(emod.spells["Barrage"]))
+			--print(emod:GetCooldown(emod.spells["Barrage"]))
 			return emod:GetCooldown(emod.spells["Barrage"]) 
 		end,
 		UpdateStatus = function()
