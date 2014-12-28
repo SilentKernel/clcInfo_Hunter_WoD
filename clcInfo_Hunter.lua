@@ -92,6 +92,7 @@ spellframe:SetScript("OnEvent", function(self, event, unit, name, rank, line, id
 		-- we're caching talents in emod.talents, so need to hook them when we log in
 		-- or when we change spec
 		emod:UpdateTalents()
+		emod.CurrentSpec = GetSpecialization() -- 1 = BM, 2 = MS, 3 = Survival
 	end
 end)
 
@@ -286,4 +287,24 @@ function emod:GetTargetDebuff(debuff)
 		left = 100
 	end
 	return left
+end
+
+function emod:InconHunter1()
+	if emod.CurrentSpec == 1 then
+		return emod.IconBeast1()		
+	elseif emod.CurrentSpec == 2 then
+		return emod.IconMarks1()
+	elseif emod.CurrentSpec == 3 then
+		return emod.IconSurvival1()
+	end
+end
+
+function emod:InconHunter2()
+	if emod.CurrentSpec == 1 then
+		return emod.IconBeast2()		
+	elseif emod.CurrentSpec == 2 then
+		return emod.IconMarks2()
+	elseif emod.CurrentSpec == 3 then
+		return emod.IconSurvival2()
+	end
 end
