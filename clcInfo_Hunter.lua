@@ -289,7 +289,7 @@ function emod:GetTargetDebuff(debuff)
 	return left
 end
 
-function emod:InconHunter1()
+function emod:IconHunter1()
 	if emod.CurrentSpec == 1 then
 		return emod.IconBeast1()		
 	elseif emod.CurrentSpec == 2 then
@@ -299,7 +299,7 @@ function emod:InconHunter1()
 	end
 end
 
-function emod:InconHunter2()
+function emod:IconHunter2()
 	if emod.CurrentSpec == 1 then
 		return emod.IconBeast2()		
 	elseif emod.CurrentSpec == 2 then

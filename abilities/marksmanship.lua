@@ -24,7 +24,7 @@ emod:RegisterSpecialisation(2, {
 			-- don't show major cooldowns for trash
 			if s1 == emod.spells["Rapid Fire"] then return 100 end
 			if not emod.s_boss then return 100 end
-			if s_rf > 0 then return 100 end
+			if emod.s_rf > 0 then return 100 end
 			return emod:GetCooldown(emod.spells["Rapid Fire"])
 		end,
 		UpdateStatus = function()
