@@ -100,11 +100,8 @@ emod.hunter_abilities = {
 		id = emod.spells["Barrage"],
 		GetCD = function()
 			if emod.last_ability == emod.spells["Barrage"] then return 100 end
-			-- This is an exotic hotfix because emod:getCooldown does not seem to work well with barrage
-			local startBar = GetSpellCooldown(emod.spells["Barrage"])
-			local cooldownBar = 20 - (GetTime() - startBar)
-			if cooldownBar < 0.5 then cooldownBar = 0 end
-			return cooldownBar --emod:GetCooldown()
+			print(emod:GetCooldown(emod.spells["Barrage"]))
+			return emod:GetCooldown(emod.spells["Barrage"]) 
 		end,
 		UpdateStatus = function()
 			emod:SetTime(3.0 / (1 + UnitSpellHaste("player") / 100))

@@ -5,6 +5,7 @@
 ## X-Curse-Project-Name: clcInfo_Hunter_WoD
 ## X-Curse-Project-ID: clcinfo_hunter_WoD
 ## X-Curse-Repository-ID: wow/clcinfo_hunter_WoD/mainline
+## Dependencies: clcinfo
 embeds.xml
 utils.lua
 

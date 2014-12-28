@@ -215,6 +215,8 @@ end
 local function IsSpellKnownWorkaround(id)
 	-- wtf glaive toss
 	if id == 117050 and emod.talents[16] == true then return true end
+	-- wtf Barrage 
+	if id == 120360 and emod.talents[18] == true then return true end
 	return IsSpellKnown(id)
 end
 
