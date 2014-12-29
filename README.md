@@ -41,3 +41,8 @@ How to use it ?
 - "return IconHunter1()" without the "" for the current skill button (wich will show you what to do now)
 - "return IconHunter2()" without the "" for the next skill button (wich will show you what you do in the next GCD)
 
+Known issues
+============
+
+* All talents are not detected right now
+* If you are not level 100 there is a possibility of getting lua error
