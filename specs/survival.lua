@@ -18,6 +18,7 @@ local prio = {
 	"gt", -- glaive toss (talent)
 	"bar", -- barrage (talent)
 	"es", -- explosive shot
+	"tac", -- arcane shot with buff
 	"stm", -- stampede
 	"ac", -- arcane shot
 	"cs", -- cobra shot
@@ -50,6 +51,10 @@ local function GetStatus()
 	emod.s_ba = emod:GetTargetDebuff(emod.auras["Black Arrow"])
 	emod.s_lnl = emod:GetBuffStacks(emod.auras["Lock and Load"])
 	emod.s_esc = 0
+	-- buff of talents
+	emod.s_sf = emod:GetBuff(emod.auras["Steady Focus"])
+	emod.s_toth = emod:GetBuffStacks(emod.auras["Thrill of the Hunt"])
+	
 
 	-- fiddle serpent sting for inflight shots
 	if emod.s_ss == 0 and emod:GetRecentSerpentSting() then

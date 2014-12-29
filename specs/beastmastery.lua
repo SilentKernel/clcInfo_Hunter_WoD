@@ -47,6 +47,10 @@ local function GetStatus()
 	emod.s_bw = emod:GetBuff(emod.auras["Bestial Wrath"])
 	emod.s_frenzy = emod:GetBuffStacks(emod.auras["Frenzy"])
 
+	-- buff of talents
+	emod.s_sf = emod:GetBuff(emod.auras["Steady Focus"])
+	emod.s_toth = emod:GetBuffStacks(emod.auras["Thrill of the Hunt"])
+
 end
 
 local function BeastRotation()
