@@ -33,7 +33,7 @@ Beast Master :
 How to use it ?
 ===============
 
-*You need CLCInfo installed : http://www.curse.com/addons/wow/clctracker
+* You need CLCInfo installed : http://www.curse.com/addons/wow/clctracker
 * Check this video to understand how CLCInfo work : https://www.youtube.com/watch?v=m99Txu4URMk (this is for retribution but don't care, juste see how CLCInfo work)
 * Click on download zip on github, unzip it and remove the "-master" form folder's name then addd it to you WoW's addon directory
 
