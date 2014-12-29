@@ -1,7 +1,7 @@
 ## Interface: 60000
 ## Title: clcInfo Hunter WoD Edition
-## Version: 0.2
-## X-Curse-Packaged-Version: v2.0.0
+## Version: 0.2.0.1
+## X-Curse-Packaged-Version: v2.0.1
 ## X-Curse-Project-Name: clcInfo_Hunter_WoD
 ## X-Curse-Project-ID: clcinfo_hunter_WoD
 ## X-Curse-Repository-ID: wow/clcinfo_hunter_WoD/mainline
