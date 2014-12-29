@@ -24,6 +24,7 @@ emod.spells = {
 	["Chimera Shot"] = 53209,
 	["Dire Beast"] = 120679,
 	["Kill Shot"] = 53351,
+	["EKill Shot"] = 157708,
 	["Rapid Fire"] = 3045,
 	["Aimed Shot"] = 19434,
 	["Arcane Shot"] = 3044,
@@ -218,6 +219,8 @@ local function IsSpellKnownWorkaround(id)
 	if id == 117050 and emod.talents[16] == true then return true end
 	-- wtf Barrage 
 	if id == 120360 and emod.talents[18] == true then return true end
+	-- Enhanced Kill shot
+	if id == 157708 and emod.CurrentSpec == 2 then return true end
 	return IsSpellKnown(id)
 end
 

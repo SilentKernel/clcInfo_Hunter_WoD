@@ -9,7 +9,12 @@ emod:RegisterSpecialisation(2, {
 		id = emod.spells["Chimera Shot"],
 		GetCD = function()
 			if emod.last_ability == emod.spells["Chimera Shot"] then return 100 end
+			if emod:GetCooldown(emod.spells["Chimera Shot"]) < 0.5	then
+				return 0
+			else
 			return emod:GetCooldown(emod.spells["Chimera Shot"])
+		end
+
 		end,
 		UpdateStatus = function()
 			emod:SetTime(1.0)
@@ -68,5 +73,18 @@ emod:RegisterSpecialisation(2, {
 			emod.s_rcss = emod.s_rcss + 1
 		end,
 		info = "Steady Shot",
+	},
+	
+	ks = {
+		id = emod:GetBaseAbility("ks").id,
+		GetCD = function()
+			if emod.last_ability == emod.spells["EKill Shot"] then return 100 end
+			if UnitHealth("target") / UnitHealthMax("target") < 0.35 then
+				return emod:GetCooldown(emod.spells["EKill Shot"])
+			end
+			return 100
+		end,
+		UpdateStatus = emod:GetBaseAbility("ks").UpdateStatus,
+		info = emod:GetBaseAbility("ks").info,
 	},
 })

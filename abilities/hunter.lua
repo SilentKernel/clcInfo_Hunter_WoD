@@ -114,7 +114,8 @@ emod.hunter_abilities = {
 		id = emod.spells["Kill Shot"],
 		GetCD = function()
 			if emod.last_ability == emod.spells["Kill Shot"] then return 100 end
-			if UnitHealth("target") / UnitHealthMax("target") < 0.2 then
+			if UnitHealth("target") / UnitHealthMax("target") < 0.20 then
+				--print(emod:GetCooldown(emod.spells["Kill Shot"]))
 				return emod:GetCooldown(emod.spells["Kill Shot"])
 			end
 			return 100
@@ -249,6 +250,7 @@ function emod:GetNextAbility(prio)
 		-- pass in the action as "self" and the list itself incase
 		-- any of the actions wish to reference other actions
 		local cd = action.GetCD(action, prio)
+		-- if cd == nil then cd = 0 end
 		-- check to see how long until we have enough focus
 		-- to do this action.
 		local tuf = emod:GetTimeUntilFocus(action.id)

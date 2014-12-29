@@ -18,6 +18,7 @@ local prio = {
 	"db", -- dire beast
 	"ks", -- kill shot
 	"mm", -- aimed shot (thrill)
+	"bar", -- Varrage
 	"gt", -- glaive toss
 	"am", -- aimed shot
 	"ss", -- steady shot
