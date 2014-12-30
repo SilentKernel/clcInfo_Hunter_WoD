@@ -22,6 +22,7 @@ local prio = {
 	"lr", -- lynx rush (talent)
 	"ff", -- focus fire
 	"ac", -- arcane shot
+	"bat", -- Blood-elf racial
 	"cs", -- cobra shot
 }
 

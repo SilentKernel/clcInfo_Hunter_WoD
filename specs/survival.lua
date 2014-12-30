@@ -21,6 +21,7 @@ local prio = {
 	"tac", -- arcane shot with buff
 	"stm", -- stampede
 	"ac", -- arcane shot
+	"bat", -- Blood-elf racial
 	"cs", -- cobra shot
 }
 

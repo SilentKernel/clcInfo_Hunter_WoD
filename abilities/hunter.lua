@@ -153,6 +153,21 @@ emod.hunter_abilities = {
 		info = "Arcane Shot",
 	},
 
+	bat = {
+	id = emod.spells["Arcane Torrent"],
+	GetCD = function()
+	--print(emod.s_sf)
+	if emod.last_ability == emod.spells["Arcane Torrent"] then return 100 end
+	if emod:GetFocus() < 60 and emod.s_toth < 1 and emod.s_sf == 0 then return emod:GetCooldown(emod.spells["Arcane Torrent"]) end
+		return 100
+	end,
+	UpdateStatus = function()
+		emod:SetTime(1.0)
+		emod:UseFocus(-15)
+	end,
+	info = "Arcane Torrent",
+	},
+
 	stm = {
 		id = emod.spells["Stampede"],
 		GetCD = function()
@@ -192,6 +207,7 @@ emod.hunter_abilities = {
 		end,
 		info = "Multi-Shot",
 	},
+
 
 	_cs = {
 		id = emod.spells["Cobra Shot"],

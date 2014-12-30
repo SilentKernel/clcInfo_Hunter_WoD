@@ -52,7 +52,7 @@ emod:RegisterSpecialisation(3, {
 		GetCD = function()
 			-- femaledwarf.com recommends not arcane shotting < 60 focus
 			-- for survival
-			if emod:GetFocus() < 80 then return 100 end
+			if emod:GetFocus() < 79 then return 100 end
 			return 0
 		end,
 		UpdateStatus = emod:GetBaseAbility("ac").UpdateStatus,

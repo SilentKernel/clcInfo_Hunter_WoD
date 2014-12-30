@@ -21,6 +21,7 @@ local prio = {
 	"bar", -- Barrage
 	"gt", -- glaive toss
 	"am", -- aimed shot
+	"bat", -- Blood-elf racial
 	"ss", -- steady shot
 }
 

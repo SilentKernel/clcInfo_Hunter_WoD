@@ -46,6 +46,9 @@ emod.spells = {
 	["Serpent Spread"] = 87935,
 	["Fervor"] = 82726,
 	["Eagle Eye"] = 6197, -- for GCD detction
+	
+	-- Racials
+	["Arcane Torrent"] = 80483,
 }
 
 emod.auras = {
