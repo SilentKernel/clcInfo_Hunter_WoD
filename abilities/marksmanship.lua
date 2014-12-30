@@ -18,7 +18,7 @@ emod:RegisterSpecialisation(2, {
 		end,
 		UpdateStatus = function()
 			emod:SetTime(1.0)
-			emod:UseFocus(45)
+			emod:UseFocus(35)
 		end,
 		info = "Chimera Shot",
 	},
@@ -42,7 +42,7 @@ emod:RegisterSpecialisation(2, {
 		id = emod.spells["Aimed Shot"],
 		GetCD = function()
 			if emod.talents[12] then
-				if emod.s_toth > 0 then return emod:GetTimeUntilFocus(emod.spells["Aimed Shot"]) end
+				if emod.s_toth > 0 and emod:GetFocus() > 65 then return emod:GetTimeUntilFocus(emod.spells["Aimed Shot"]) end
 			end
 			return 100
 		end,
@@ -56,7 +56,10 @@ emod:RegisterSpecialisation(2, {
 	
 	am = {
 		id = emod.spells["Aimed Shot"],
-		GetCD = function() return 0 end,
+		GetCD = function() 
+		if emod:GetFocus() > 85 then return 0 end
+			return 100
+		end,
 		UpdateStatus = function()
 			emod:SetTime(1.0)
 			emod:UseFocus(50)
