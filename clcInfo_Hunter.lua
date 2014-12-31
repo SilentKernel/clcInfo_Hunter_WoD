@@ -8,6 +8,7 @@ local db
 -- status
 local s_ctime, s_realtime, s_delta, s_beast = 0, 0, 0, 0
 
+
 -- focus storage
 local focus
 
@@ -79,10 +80,13 @@ local recent_ss = 0
 
 local spellframe = CreateFrame("Frame", nil, UIParent)
 spellframe:RegisterEvent("UNIT_SPELLCAST_SUCCEEDED")
+spellframe:RegisterEvent("UNIT_SPELLCAST_SENT")
+spellframe:RegisterEvent("UNIT_SPELLCAST_FAILED")
 spellframe:RegisterEvent("PLAYER_TALENT_UPDATE")
 spellframe:RegisterEvent("PLAYER_ENTERED_WORLD")
 spellframe:RegisterEvent("ZONE_CHANGED")
 spellframe:SetScript("OnEvent", function(self, event, unit, name, rank, line, id)
+
 	if event == "UNIT_SPELLCAST_SUCCEEDED" and unit == "player" then
 		-- record the last time of desired shots in recent
 		if emod.recent[id] ~= nil then
@@ -98,7 +102,32 @@ spellframe:SetScript("OnEvent", function(self, event, unit, name, rank, line, id
 		-- or when we change spec
 		emod:UpdateTalents()
 		emod.CurrentSpec = GetSpecialization() -- 1 = BM, 2 = MS, 3 = Survival
+
+		-- last time casted shot sent to the server
+ 		emod.last_ss = 0
+ 		emod.last_cs = 0 
+ 		emod.last_fs = 0
+ 		emod.last_as = 0
 	end
+
+	-- This part will allow you to konw if player is currently casting a shot
+	if event == "UNIT_SPELLCAST_SENT" and unit == "player" then
+		-- id sent here is not the id of the spell ... so we use name instead (english and french are supported)
+		if name == "Cobra Shot" or name == "Tir du cobra" then emod.last_cs = emod:GetTime()
+		elseif name == "Steady Shot" or name == "Tir assuré" then emod.last_ss = emod:GetTime()
+		elseif name == "Focusing Shot" or name == "Tir concentré" then emod.last_fs = emod:GetTime()
+		elseif name == "Aimed Shot" or name == "Visée" then emod.last_as = emod:GetTime() end
+
+	end
+
+	if event == "UNIT_SPELLCAST_FAILED" and unit == "player" then
+		-- here id is the good one oO
+		if id == emod.spells["Cobra Shot"] then emod.last_cs = 0
+		elseif id == emod.spells["Steady Shot"] then emod.last_ss = 0 
+		elseif id == emod.spells["Focusing Shot"] then emod.last_fs = 0 
+		elseif id == emod.spells["Aimed Shot"] then emod.last_as = 0 end
+	end
+
 end)
 
 local CostTip = CreateFrame('GameTooltip')
@@ -259,8 +288,8 @@ function emod:GetTimeUntilFocus(id)
 end
 
 function emod:GetCastTime(id)
-	local __, __, __, __, __, __, time = GetSpellInfo(id)
-	return time / 1000
+	local __, __, __, castTime = GetSpellInfo(id)
+	return castTime / 1000
 end
 
 function emod:GetRecentSteadyShotCount()
@@ -296,6 +325,49 @@ function emod:GetTargetDebuff(debuff)
 		left = 100
 	end
 	return left
+end
+
+-- This function will tell us if the player is currently casting a shot
+function emod:GetShotIsCurrentlyCasted(id)
+	local lastCastSent = 0
+	local castTime = emod:GetCastTime(id)
+	--print(castTime)
+
+
+	if id == emod.spells["Cobra Shot"] then lastCastSent = emod.last_cs
+		elseif id == emod.spells["Steady Shot"] then lastCastSent = emod.last_ss
+		elseif id == emod.spells["Focusing Shot"] then lastCastSent = emod.last_fs 
+		elseif id == emod.spells["Aimed Shot"] then lastCastSent = emod.last_as 
+	end
+
+	if lastCastSent > 0 then
+		local CurrentTime = emod:GetTime()
+		if (CurrentTime - lastCastSent) <= castTime then
+			return true
+		end
+	end
+
+	return false
+end
+
+function emod:GetFocustAfterCurrentCast()
+	-- Grant focus
+	if emod:GetShotIsCurrentlyCasted(emod.spells["Cobra Shot"]) then return emod:GetFocus() + 14 end
+	if emod:GetShotIsCurrentlyCasted(emod.spells["Steady Shot"]) then return emod:GetFocus() + 14 end
+	if emod:GetShotIsCurrentlyCasted(emod.spells["Focusing Shot"]) then return emod:GetFocus() + 50 end
+
+	-- Reduce focus 
+	-- Aimed shot has mort than 80% crit if target is above 80% hp so... except if you have no luck ...
+	if UnitHealth("target") / UnitHealthMax("target") < 0.80 then
+		if emod:GetShotIsCurrentlyCasted(emod.spells["Aimed Shot"]) and emod.s_toth > 0 then return emod:GetFocus() - 10 end
+		if emod:GetShotIsCurrentlyCasted(emod.spells["Aimed Shot"]) then return emod:GetFocus() - 30 end
+	-- Below 80% there is less chance of crit
+	else
+		if emod:GetShotIsCurrentlyCasted(emod.spells["Aimed Shot"]) and emod.s_toth > 0 then return emod:GetFocus() - 30 end
+		if emod:GetShotIsCurrentlyCasted(emod.spells["Aimed Shot"]) then return emod:GetFocus() - 50 end
+	end
+	
+	return emod:GetFocus()
 end
 
 function emod:IconHunter1()

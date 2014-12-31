@@ -8,8 +8,9 @@ emod:RegisterSpecialisation(2, {
 	cs = {
 		id = emod.spells["Chimera Shot"],
 		GetCD = function()
+		--print(emod:GetCooldown(emod.spells["Chimera Shot"]))
 			if emod.last_ability == emod.spells["Chimera Shot"] then return 100 end
-			if emod:GetCooldown(emod.spells["Chimera Shot"]) < 0.5	then
+			if emod:GetCooldown(emod.spells["Chimera Shot"]) < 0.5 then
 				return 0
 			else
 			return emod:GetCooldown(emod.spells["Chimera Shot"])
@@ -42,7 +43,7 @@ emod:RegisterSpecialisation(2, {
 		id = emod.spells["Aimed Shot"],
 		GetCD = function()
 			if emod.talents[12] then
-				if emod.s_toth > 0 and emod:GetFocus() > 65 then return 0.5 end
+				if emod.s_toth > 0 and emod:GetFocustAfterCurrentCast() >= 65 then return 0.9 end
 			end
 			return 100
 		end,
@@ -57,7 +58,8 @@ emod:RegisterSpecialisation(2, {
 	am = {
 		id = emod.spells["Aimed Shot"],
 		GetCD = function() 
-		if emod:GetFocus() > 85 then return 0.5 end
+		--print(emod:GetShotIsCurrentlyCasted(emod.spells["Steady Shot"]))
+			if emod:GetFocustAfterCurrentCast() >= 85 then return 0.7 end
 			return 100
 		end,
 		UpdateStatus = function()

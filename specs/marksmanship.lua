@@ -52,6 +52,7 @@ local function GetStatus()
 	emod.focus = UnitPower("player")
 	emod.maxf = UnitPowerMax("player")
 	emod.s_rcss = emod:GetRecentSteadyShotCount()
+	--print(emod.s_rcss)
 end
 
 local function MarksRotation()
