@@ -46,6 +46,7 @@ emod.spells = {
 	["Serpent Spread"] = 87935,
 	["Fervor"] = 82726,
 	["Eagle Eye"] = 6197, -- for GCD detction
+	["Focusing Shot"] = 152245,
 	
 	-- Racials
 	["Arcane Torrent"] = 80483,
@@ -219,11 +220,13 @@ end
 
 local function IsSpellKnownWorkaround(id)
 	-- wtf glaive toss
-	if id == 117050 and emod.talents[16] == true then return true end
+	if id == emod.spells["Glaive Toss"] and emod.talents[16] == true then return true end
 	-- wtf Barrage 
-	if id == 120360 and emod.talents[18] == true then return true end
+	if id == emod.spells["Barrage"] and emod.talents[18] == true then return true end
 	-- Enhanced Kill shot
-	if id == 157708 and emod.CurrentSpec == 2 then return true end
+	if id == emod.spells["EKill Shot"] and emod.CurrentSpec == 2 then return true end
+	-- Focusing Shot
+	if id == emod.spells["Focusing Shot"] and emod.talents[20] then return true end
 	return IsSpellKnown(id)
 end
 
