@@ -42,7 +42,7 @@ emod:RegisterSpecialisation(2, {
 		id = emod.spells["Aimed Shot"],
 		GetCD = function()
 			if emod.talents[12] then
-				if emod.s_toth > 0 and emod:GetFocus() > 65 then return emod:GetTimeUntilFocus(emod.spells["Aimed Shot"]) end
+				if emod.s_toth > 0 and emod:GetFocus() > 65 then return 0.5 end
 			end
 			return 100
 		end,
@@ -57,7 +57,7 @@ emod:RegisterSpecialisation(2, {
 	am = {
 		id = emod.spells["Aimed Shot"],
 		GetCD = function() 
-		if emod:GetFocus() > 85 then return 0 end
+		if emod:GetFocus() > 85 then return 0.5 end
 			return 100
 		end,
 		UpdateStatus = function()
@@ -69,7 +69,10 @@ emod:RegisterSpecialisation(2, {
 
 	ss = {
 		id = emod.spells["Steady Shot"],
-		GetCD = function() return 1.0 end,
+		GetCD = function() 
+		if emod:GetCooldown(emod.spells["Focusing Shot"]) > 0 then return 1.0 end
+			return 100
+		end,
 		UpdateStatus = function()
 			emod:SetTime(emod:GetCastTime(emod.spells["Steady Shot"]))
 			emod:UseFocus(-14)

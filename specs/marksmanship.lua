@@ -22,6 +22,7 @@ local prio = {
 	"gt", -- glaive toss
 	"am", -- aimed shot
 	"bat", -- Blood-elf racial
+	"fs", -- focusing shot
 	"ss", -- steady shot
 }
 

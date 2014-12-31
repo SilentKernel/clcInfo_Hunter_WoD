@@ -45,13 +45,32 @@ emod.hunter_abilities = {
 			-- the return value of this determines the "wiggle room" between choosing
 			-- a shot that requires more regeneration and choosing to cast cobra shot
 			-- instead of it.
-			return 1.0
+			--print(emod:GetCooldown(emod.spells["Focusing Shot"]))
+			if emod:GetCooldown(emod.spells["Focusing Shot"]) > 0 then return 1.0 end
+			return 100
 		end,
 		UpdateStatus = function()
 			emod:SetTime(emod:GetCastTime(emod.spells["Cobra Shot"]))
 			emod:UseFocus(-14)
 		end,
 		info = "Cobra Shot",
+	},
+
+	fs = {
+		id = emod.spells["Focusing Shot"],
+		GetCD = function()
+			-- the return value of this determines the "wiggle room" between choosing
+			-- a shot that requires more regeneration and choosing to cast cobra shot
+			-- instead of it.
+			--print(emod:GetCooldown(emod.spells["Focusing Shot"]))
+			if emod:GetCooldown(emod.spells["Focusing Shot"]) == 0 then return 1.5 end
+			return 100
+	end,
+		UpdateStatus = function()
+			emod:SetTime(emod:GetCastTime(emod.spells["Focusing Shot"]))
+			emod:UseFocus(-50)
+		end,
+		info = "Focusing Shot",
 	},
 	
 	fv = {
