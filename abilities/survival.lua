@@ -50,11 +50,8 @@ emod:RegisterSpecialisation(3, {
 	ac = {
 		id = emod:GetBaseAbility("ac").id,
 		GetCD = function()
-			-- femaledwarf.com recommends not arcane shotting < 60 focus
-			-- for survival
-			-- if emod.s_ss < 3 and emod:GetFocus() > 45 then return 0 end
-			print(emod:GetCooldown(emod.spells["Focusing Shot"]))
-			if emod:GetFocus() > 34 and emod:GetCooldown(emod.spells["Focusing Shot"]) == 0 then return 0 end
+			-- simulationcraft
+			if emod:GetFocus() > 45 and emod:GetCooldown(emod.spells["Focusing Shot"]) == 0 then return 0 end
 			if emod:GetFocus() > 34 and emod.s_ss < 3 then return 0 end
 			if emod:GetFocus() < 79 then return 100 end
 			return 0
