@@ -12,6 +12,7 @@ local s1, s2
 
 local prio = {
 	"moc", -- murder of crows
+	"stm", -- stampede
 	-- "ssp", -- steady shot pair (steady focus)
 	"rf", -- rapid fire
 	"cs", -- chimera shot
