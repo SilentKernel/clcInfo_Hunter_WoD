@@ -15,9 +15,9 @@ local prio = {
 	"moc", -- murder of crows (talent)
 	"db", -- dire beast
 	"fv", -- fervor
+	"es", -- explosive shot
 	"gt", -- glaive toss (talent)
 	"bar", -- barrage (talent)
-	"es", -- explosive shot
 	"tac", -- arcane shot with buff
 	"stm", -- stampede
 	"ac", -- arcane shot
