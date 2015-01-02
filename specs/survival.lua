@@ -20,6 +20,7 @@ local prio = {
 	"bar", -- barrage (talent)
 	"tac", -- arcane shot with buff
 	"stm", -- stampede
+	"et", -- explosive trap
 	"ac", -- arcane shot
 	"bat", -- Blood-elf racial
 	"fs", -- focusing shot

@@ -51,7 +51,8 @@ emod:RegisterSpecialisation(3, {
 		id = emod:GetBaseAbility("ac").id,
 		GetCD = function()
 			-- simulationcraft
-			if emod:GetFocustAfterCurrentCast() > 45 and emod:GetCooldown(emod.spells["Focusing Shot"]) == 0 then return 0 end
+			if emod:GetFocustAfterCurrentCast() > 44 and emod:GetCooldown(emod.spells["Focusing Shot"]) == 0 then return 0 end
+			if emod:GetFocustAfterCurrentCast() > 29 and emod.s_ss < 3 then return 0 end
 			if emod:GetFocustAfterCurrentCast() < 79 then return 100 end
 			return 0
 		end,
