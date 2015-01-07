@@ -424,22 +424,22 @@ function emod:GetFocustAfterCurrentCast()
 	return emod:GetFocus()
 end
 
-function emod:IconHunter1()
+function emod:IconHunter1(...)
 	if emod.CurrentSpec == 1 then
-		return emod.IconBeast1()		
+		return emod.IconBeast1(...)		
 	elseif emod.CurrentSpec == 2 then
-		return emod.IconMarks1()
+		return emod.IconMarks1(...)
 	elseif emod.CurrentSpec == 3 then
-		return emod.IconSurvival1()
+		return emod.IconSurvival1(...)
 	end
 end
 
-function emod:IconHunter2()
+function emod:IconHunter2(...)
 	if emod.CurrentSpec == 1 then
-		return emod.IconBeast2()		
+		return emod.IconBeast2(...)		
 	elseif emod.CurrentSpec == 2 then
-		return emod.IconMarks2()
+		return emod.IconMarks2(...)
 	elseif emod.CurrentSpec == 3 then
-		return emod.IconSurvival2()
+		return emod.IconSurvival2(...)
 	end
 end
