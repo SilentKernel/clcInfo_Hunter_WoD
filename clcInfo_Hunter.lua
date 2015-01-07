@@ -5,6 +5,10 @@ local emod = clcInfo.env
 local debug = clcInfo.debug
 local db
 
+-- Target tracking
+emod.numOfTargets = 0
+local targetsInfo = {}
+
 -- status
 local s_ctime, s_realtime, s_delta, s_beast = 0, 0, 0, 0
 
@@ -79,12 +83,17 @@ emod.recent = {
 local recent_ss = 0
 
 local spellframe = CreateFrame("Frame", nil, UIParent)
-spellframe:RegisterEvent("UNIT_SPELLCAST_SUCCEEDED")
-spellframe:RegisterEvent("UNIT_SPELLCAST_SENT")
-spellframe:RegisterEvent("UNIT_SPELLCAST_FAILED")
+
+-- Loading ...
 spellframe:RegisterEvent("PLAYER_TALENT_UPDATE")
 spellframe:RegisterEvent("PLAYER_ENTERED_WORLD")
 spellframe:RegisterEvent("ZONE_CHANGED")
+
+-- Tracking when player cast
+spellframe:RegisterEvent("UNIT_SPELLCAST_SUCCEEDED")
+spellframe:RegisterEvent("UNIT_SPELLCAST_SENT")
+spellframe:RegisterEvent("UNIT_SPELLCAST_FAILED")
+
 spellframe:SetScript("OnEvent", function(self, event, unit, name, rank, line, id)
 
 	if event == "UNIT_SPELLCAST_SUCCEEDED" and unit == "player" then
@@ -108,11 +117,14 @@ spellframe:SetScript("OnEvent", function(self, event, unit, name, rank, line, id
  		emod.last_cs = 0 
  		emod.last_fs = 0
  		emod.last_as = 0
+
+ 		-- Wipe data from targets tracking
+ 		emod:ClearNumberOfTargets()
 	end
 
 	-- This part will allow you to konw if player is currently casting a shot
 	if event == "UNIT_SPELLCAST_SENT" and unit == "player" then
-		-- id sent here is not the id of the spell ... so we use name instead (english and french are supported)
+		-- using name cause the basic function don't take id as paramaeter (to fix ...)
 		if name == "Cobra Shot" or name == "Tir du cobra" then emod.last_cs = emod:GetTime()
 		elseif name == "Steady Shot" or name == "Tir assuré" then emod.last_ss = emod:GetTime()
 		elseif name == "Focusing Shot" or name == "Tir concentré" then emod.last_fs = emod:GetTime()
@@ -129,6 +141,48 @@ spellframe:SetScript("OnEvent", function(self, event, unit, name, rank, line, id
 	end
 
 end)
+
+-- Tracking number of targets
+function emod:ClearOldTargets()
+	local staleTime = GetTime() - 3 -- 2 GCD
+	for targetId,lastSeen in pairs(targetsInfo) do
+		if lastSeen < staleTime then
+			targetsInfo[targetId] = nil
+			emod.numOfTargets = emod.numOfTargets - 1
+		end
+	end
+end
+
+function emod:ClearNumberOfTargets()
+	--print("clean")
+	wipe(targetsInfo)
+	emod.numOfTargets = 0
+end
+
+function emod:TrackNumberOfTarget(destGUID)
+	if targetsInfo[destGUID] == nil then
+		emod.numOfTargets = emod.numOfTargets + 1
+	end
+	targetsInfo[destGUID] = GetTime()
+	emod:ClearOldTargets()
+end
+
+local trackingFrame = CreateFrame("Frame", nil, UIParent)
+trackingFrame:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
+trackingFrame:SetScript("OnEvent", function(self, event, ...)
+	if event == 'COMBAT_LOG_EVENT_UNFILTERED' then
+		local timestamp, eventType, hideCaster, sourceGUID, sourceName, sourceFlags, sourceRaidFlags, destGUID, destName, destFlags, destRaidFlags, spellID, spellName, _, extraskillID, extraskillname = ...;
+		if sourceGUID == UnitGUID("player") or sourceGUID == UnitGUID("pet") then
+			if eventType == "SPELL_DAMAGE" or eventType == "SPELL_MISSED" or eventType == "SPELL_PERIODIC_DAMAGE" then
+				emod:TrackNumberOfTarget(destGUID)
+				-- emod.numOfTargets = 50
+				-- debug
+				-- print(emod.numOfTargets)
+			end
+		end
+	end
+end)
+
 
 local CostTip = CreateFrame('GameTooltip')
 local CostText = CostTip:CreateFontString()

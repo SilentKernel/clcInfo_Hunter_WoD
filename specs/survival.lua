@@ -18,9 +18,11 @@ local prio = {
 	"es", -- explosive shot
 	"gt", -- glaive toss (talent)
 	"bar", -- barrage (talent)
+	"tms", -- multi shot (THOT)
 	"tac", -- arcane shot with buff
 	"stm", -- stampede
 	"et", -- explosive trap
+	"ms", -- multishot
 	"ac", -- arcane shot
 	"bat", -- Blood-elf racial
 	"fs", -- focusing shot
