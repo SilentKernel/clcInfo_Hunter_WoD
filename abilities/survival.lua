@@ -80,7 +80,7 @@ emod:RegisterSpecialisation(3, {
 		id = emod:GetBaseAbility("ms").id,
 		GetCD = function()
 			if emod.s_ss <= 5 and emod.numOfTargets > 2 then return 0 end
-			if emod:GetFocustAfterCurrentCast() < 79 and emod.numOfTargets < 4 then return 100 end
+			if emod:GetFocustAfterCurrentCast() > 79 and emod.numOfTargets > 2 then return 0 end
 			return 100
 		end,
 		UpdateStatus = function()

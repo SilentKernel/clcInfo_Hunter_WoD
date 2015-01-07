@@ -144,7 +144,7 @@ end)
 
 -- Tracking number of targets
 function emod:ClearOldTargets()
-	local staleTime = GetTime() - 3 -- 2 GCD
+	local staleTime = GetTime() - 2.5 -- 1 gcd + 1 second
 	for targetId,lastSeen in pairs(targetsInfo) do
 		if lastSeen < staleTime then
 			targetsInfo[targetId] = nil
