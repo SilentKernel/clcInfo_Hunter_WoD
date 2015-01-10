@@ -177,7 +177,7 @@ emod.hunter_abilities = {
 	GetCD = function()
 	--print(emod.s_sf)
 	if emod.last_ability == emod.spells["Arcane Torrent"] then return 100 end
-	if emod:GetFocus() < 60 and emod.s_toth < 1 and emod.s_sf == 0 then return emod:GetCooldown(emod.spells["Arcane Torrent"]) end
+	if emod:GetFocustAfterCurrentCast() < 60 and emod.s_toth < 1 and emod.s_sf == 0 then return emod:GetCooldown(emod.spells["Arcane Torrent"]) end
 		return 100
 	end,
 	UpdateStatus = function()

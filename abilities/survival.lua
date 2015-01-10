@@ -53,7 +53,7 @@ emod:RegisterSpecialisation(3, {
 		GetCD = function()
 			-- simulationcraft
 			if emod.numOfTargets > 2 then return 100 end
-			if emod:GetFocustAfterCurrentCast() > 44 and emod:GetCooldown(emod.spells["Focusing Shot"]) == 0 then return 0 end
+			if emod:GetFocustAfterCurrentCast() > 29 and emod:GetCooldown(emod.spells["Focusing Shot"]) < 100 then return 0 end
 			if emod:GetFocustAfterCurrentCast() > 29 and emod.s_ss < 3 then return 0 end
 			if emod:GetFocustAfterCurrentCast() < 79 then return 100 end
 			return 0
@@ -79,8 +79,10 @@ emod:RegisterSpecialisation(3, {
 	ms = {
 		id = emod:GetBaseAbility("ms").id,
 		GetCD = function()
-			if emod.s_ss <= 5 and emod.numOfTargets > 2 then return 0 end
-			if emod:GetFocustAfterCurrentCast() > 79 and emod.numOfTargets > 2 then return 0 end
+			if emod.numOfTargets < 3 then return 100 end
+			if emod.s_ss <= 5 then return 0 end
+			if emod:GetFocustAfterCurrentCast() > 39 and emod:GetCooldown(emod.spells["Focusing Shot"]) < 100 then return 0 end
+			if emod:GetFocustAfterCurrentCast() > 79 then return 0 end
 			return 100
 		end,
 		UpdateStatus = function()
