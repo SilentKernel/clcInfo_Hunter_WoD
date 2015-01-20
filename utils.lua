@@ -18,7 +18,6 @@ end
 
 function emod:GetBuffStacks(buff)
 	local __, __, __, count = UnitBuff("player", buff, nil, "PLAYER")
-	--print("je suis dans la fonction")
 	if count == nil then
 		return 0
 	else

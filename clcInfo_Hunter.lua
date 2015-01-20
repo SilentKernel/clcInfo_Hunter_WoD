@@ -70,6 +70,13 @@ emod.auras = {
 	["Cobra Shot"] = GetSpellInfo(77767), -- not really an aura but need the name localised for cast detection
 	["Fervor"] = GetSpellInfo(82726),
 	["Thrill of the Hunt"] = GetSpellInfo(109306),
+	
+	-- Raid haste buff
+	["Bloodlust"] = GetSpellInfo(2825),
+	["Heroism"] = GetSpellInfo(32182),
+	["Time Warp"] = GetSpellInfo(80353),
+	["Ancient Hysteria"] = GetSpellInfo(90355),
+	["Drums of Fury"] = GetSpellInfo(178207),
 }
 
 emod.talents = {}
@@ -422,6 +429,22 @@ function emod:GetFocustAfterCurrentCast()
 	end
 	
 	return emod:GetFocus()
+end
+
+function emod:gethasHastBuff()
+	if emod:GetBuff(emod.auras["Bloodlust"]) > 0 then 
+		return true
+	elseif emod:GetBuff(emod.auras["Heroism"]) > 0 then
+		return true
+	elseif emod:GetBuff(emod.auras["Time Warp"]) > 0 then
+		return true
+	elseif emod:GetBuff(emod.auras["Ancient Hysteria"]) > 0 then
+		return true
+	elseif emod:GetBuff(emod.auras["Drums of Fury"]) > 0 then
+		return true
+	else 
+		return false
+	end
 end
 
 function emod:IconHunter1(...)

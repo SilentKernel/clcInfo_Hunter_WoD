@@ -31,7 +31,10 @@ emod:RegisterSpecialisation(2, {
 			if s1 == emod.spells["Rapid Fire"] then return 100 end
 			if not emod.s_boss then return 100 end
 			if emod.s_rf > 0 then return 100 end
-			return emod:GetCooldown(emod.spells["Rapid Fire"])
+			-- we do not use it if we already have Bloodlust buff
+			if emod:gethasHastBuff() then return 100 end
+			if emod:GetCooldown(emod.spells["Rapid Fire"]) == 0 then return 0 end
+			return 100
 		end,
 		UpdateStatus = function()
 			emod.s_rf = 15.0
